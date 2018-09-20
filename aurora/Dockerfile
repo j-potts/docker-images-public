@@ -8,27 +8,27 @@ RUN set -x && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-RUN curl -ksLo /mysql-5.6.10-debian6.0-x86_64.deb 'https://cdn.mysql.com/archives/mysql-5.6/mysql-5.6.10-debian6.0-x86_64.deb' && \
-    dpkg -i /mysql-5.6.10-debian6.0-x86_64.deb && \
-    rm /mysql-5.6.10-debian6.0-x86_64.deb
+RUN curl -ksLo /mysql-5.7.10-debian6.0-x86_64.deb 'https://cdn.mysql.com/archives/mysql-5.7/mysql-5.7.10-debian6.0-x86_64.deb' && \
+    dpkg -i /mysql-5.7.10-debian6.0-x86_64.deb && \
+    rm /mysql-5.7.10-debian6.0-x86_64.deb
 
-RUN /opt/mysql/server-5.6/scripts/mysql_install_db \
-  --basedir=/opt/mysql/server-5.6 \
-  --datadir=/opt/mysql/server-5.6/data \
-  --plugin-dir=/opt/mysql/server-5.6/lib/plugin \
+RUN /opt/mysql/server-5.7/scripts/mysql_install_db \
+  --basedir=/opt/mysql/server-5.7 \
+  --datadir=/opt/mysql/server-5.7/data \
+  --plugin-dir=/opt/mysql/server-5.7/lib/plugin \
   --user=mysql \
   --log-error=/var/log/mysql/install_db_error.log
 
 RUN mkdir -p /var/mysql && \
     mkdir -p /var/log/mysql && \
-    mkdir -p /opt/mysql/server-5.6/data && \
+    mkdir -p /opt/mysql/server-5.7/data && \
     chown mysql /var/log/mysql&& \
-    chown mysql /opt/mysql/server-5.6/data
+    chown mysql /opt/mysql/server-5.7/data
 
 RUN mkdir /schemas
 
 USER mysql
-WORKDIR /opt/mysql/server-5.6
+WORKDIR /opt/mysql/server-5.7
 
 COPY run.sh /opt/
 
